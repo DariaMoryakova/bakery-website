@@ -1,9 +1,9 @@
 
-#Bakery Website
+# Bakery Website
 
-##This is a bakery website, which sells cakes, cupcakes and cookies.
+## This is a bakery website, which sells cakes, cupcakes and cookies.
 
-##Client Suggestions:
+## Client Suggestions:
 
 Client wants it to look and feel like a bakery website. 
 The front page should provide information about the bakery
@@ -16,7 +16,7 @@ a name
 a description
 There should be a way for a person on the site to receive an email with a catalog of all items sold
 
-##Technology used:
+## Technology used:
 
 For front-end:
 
