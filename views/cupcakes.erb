@@ -1,16 +1,19 @@
+  </br>
+   <h1 class="aboutBakeryTitile"> Cupcakes Menu: </h1>
+
+
   <div class="container row" id="sortCakes">
-<% @cupcakes.each do |cupcake| %>
+     <% @cupcakes.each do |cupcake| %>
       <div class="col s12 m7 l4" id="pistachio">
         <div class="card">
           <div class="card-image">
             <img src= '<%= cupcake.img %>'>
-            <span class="card-title">Card Title</span>
+            <span class="card-title"> Cupcake </span>
           </div>
             <div class="card-action">
             <a href="#">This is a link</a>
           </div>
         </div>
       </div>
-
 
     <% end %>

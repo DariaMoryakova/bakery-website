@@ -1,19 +1,20 @@
-<br> <br> <br>
+</br>
 <h1 class="aboutBakeryTitile"> Cookies Menu: </h1>
 
   <div class="container row" id="sortCakes">
 
-      <div class="col s12 m7 l4" id="pistachio">
+    
       <% @cookies.each do |cookie| %>
+         <div class="col s12 m7 l4" id="pistachio">
         <div class="card">
           <div class="card-image">
             <img src='<%= cookie.img %>'>
-            <span class="card-title">Card Title</span>
+            <span class="card-title">Cookie </span>
           </div>
             <div class="card-action">
             <a href="#">This is a link</a>
           </div>
         </div>
-        
-    <% end %>
       </div>
+    <% end %>
+   
