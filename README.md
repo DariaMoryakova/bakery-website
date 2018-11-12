@@ -1,7 +1,7 @@
 
 # Bakery Website
 
-## This is a bakery website, which sells cakes, cupcakes and cookies.
+ This is a fullstack bakery website that displays information about cookies, cakes and muffins offered for sale as well as enables someone to receive a catalog of items sold via email.
 
 ## Client Suggestions:
 
@@ -24,5 +24,5 @@ I am using HTML,CSS,Javascript and Materialize library to style the website. Eve
 
 For back-end:
 
-I am using Sinatra microframework. I also, use the Sendgrid API to send an email to the user’s email with a catalog of all items sold. 
+I am using Sinatra microframework. I also, use the Sendgrid API to send an email to the userï¿½s email with a catalog of all items sold. 
 

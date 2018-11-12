@@ -39,9 +39,6 @@ var chocolateCakes = document.querySelectorAll("#chocolate");
   for(let i=0; i<vanillaCakes.length; i++) {
     vanillaCakes[i].style.display = "none";
   }
-  //  for(let i=0; i<pistachioCakes.length; i++) {
-  //     pistachioCakes[i].style.display = "none";
-  // }
 
   for(let i=0; i < chocolateCakes.length; i++) {
       chocolateCakes[i].style.display = "block";
@@ -51,38 +48,30 @@ var chocolateCakes = document.querySelectorAll("#chocolate");
 
 // Make strawbery button appear:
   strawberyButton.addEventListener("click", function(){
-    // console.log(chocolateButton);
+
     for(let i=0; i<vanillaCakes.length; i++) {
          vanillaCakes[i].style.display = "none";
     }
-    // lemonCake.style.display = "none";
-    // for(let i=0; i<pistachioCakes.length; i++) {
-    //   pistachioCakes[i].style.display = "none";
-    // }
-
     for(let i=0; i < chocolateCakes.length; i++) {
         chocolateCakes[i].style.display = "none";
     }
     for(let i=0; i < strawberyCakes.length; i++) {
         strawberyCakes[i].style.display = "block";
     }
+
 });
 
 
 vanillaButton.addEventListener("click", function(){
-  // console.log(chocolateButton);
+
   for(let i=0; i<strawberyCakes.length; i++) {
        strawberyCakes[i].style.display = "none";
   }
- 
-//   for(let i=0; i<pistachioCakes.length; i++) {
-//     pistachioCakes[i].style.display = "none";
-// }
-
   for(let i=0; i < chocolateCakes.length; i++) {
       chocolateCakes[i].style.display = "none";
   }
   for(let i=0; i < vanillaCakes.length; i++) {
       vanillaCakes[i].style.display = "block";
   }
+
 });
