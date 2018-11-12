@@ -1,0 +1,476 @@
+function change_shipping(){
+        selected_store = jQuery('#pickup_store').val();
+
+    if( selected_store == '' || !selected_store ){
+        jQuery('.shipping_address_block').addClass('hideThis');
+        jQuery('.pickup_date_container').hide();
+        jQuery('.pickup_time_container').hide();
+		//jQuery('.pickup_store_container').hide();
+        hard_update_price();
+
+    } else if( selected_store == 4751  ){
+        //console.log(the_ajax_script.stores);
+        //console.log(selected);
+        /*
+        jQuery('#shipping_address_1').val( jQuery('#billing_address_1').val() );
+        jQuery('#shipping_address_2').val( jQuery('#billing_address_2').val() );
+        jQuery('#shipping_city').val( jQuery('#billing_city').val() );
+        jQuery('#shipping_state').val( jQuery('#billing_state').val() );
+        jQuery('#shipping_postcode').val( jQuery('#billing_postcode').val() );
+        */
+        jQuery('.shipping_address_block').removeClass('hideThis');
+        jQuery("#pickup_date").val('UPS');
+        jQuery('#pickup_time').html('<option value="UPS" selected="selected">UPS</option>');
+		jQuery('#shipping_type_local').attr('disabled', true);
+        jQuery('.pickup_date_container').hide();
+        jQuery('.pickup_time_container').hide();
+        hard_update_price();
+    } else {
+        jQuery('.shipping_method').removeAttr('checked');
+        jQuery('[value="local_pickup"]').attr('checked', 'checked');
+        //local_pickup
+        var selected =  the_ajax_script.stores[selected_store];
+        //console.log(the_ajax_script.stores);
+        jQuery('.shipping_address_block').addClass('hideThis');
+        jQuery('#shipping_address_1').val(selected.address);
+        jQuery('#shipping_address_2').val(selected.address2);
+        jQuery('#shipping_city').val(selected.city);
+        jQuery('#shipping_state').val(selected.state);
+        jQuery('#shipping_postcode').val(selected.zip);
+
+        
+
+        //jQuery("#pickup_store option[value='']").attr('disabled', 'disabled');
+        jQuery("#pickup_date").val('');
+        jQuery("#pickup_time").val('');
+        jQuery('.pickup_options_errors').html('<img class="loader" src="' + the_ajax_script.ajax_loader + '"/>').show();
+        hard_update_price();
+        if (selected_store) {
+            var data = {
+                action: 'get_store_off_days',
+                selected_store: selected_store
+            };
+            jQuery.post(the_ajax_script.ajaxurl, data, function (response) {
+                jQuery('.pickup_date_container').show();
+                jQuery('.pickup_options_errors').html("").hide();
+                offdays = jQuery.parseJSON(response);
+                var minPicDay = the_ajax_script.minPicupDay;
+				var d = new Date();
+				var n = d.getDay();
+				if(n == 6){
+					minPicDay = 3;
+				}
+                week_days = offdays['week_days'];
+                unavailable_days = offdays['unavailable_days'];
+                console.log(minPicDay);
+                jQuery("#pickup_date").datepicker({
+                    inline: true,
+                    minDate: minPicDay,
+                    maxDate: 60,
+					firstDay:0,
+                    beforeShowDay: unavailableDates,
+                });
+
+            });
+        }
+    }
+}
+var pickup_is_checked = false;
+
+jQuery(document).ready(function () {
+
+    if (jQuery('#shipping_method_0_local_pickup1').is(":checked") || (jQuery("input.shipping_method").size() == 1 && jQuery("td[data-title=Shipping]").find("input").val() == "local_pickup:1")) {
+        jQuery('.store_pickup_options').show();
+        pickup_is_checked = true;
+    }
+
+    if( jQuery('.shipping_method').length >0 ){
+        if( jQuery('.shipping_method:checked').length ==0 ){
+            jQuery('.shipping_method:first').attr('checked', 'checked');
+        }
+
+    }
+
+});
+
+
+jQuery(document).on("change", "select.shipping_method, input[name^=shipping_method]", function () {
+    if (jQuery('#shipping_method_0_local_pickup1').is(":checked")) {
+        pickup_is_checked = true;
+        jQuery('.store_pickup_options').show();
+    } else {
+        pickup_is_checked = false;
+        jQuery('.shipping_address_block').removeClass('hideThis');
+        jQuery('.store_pickup_options').hide();
+    }
+});
+
+    /*if( jQuery('#type_ship').val()=='shipping address' ){
+            jQuery('#pickup_store_field').hide(1);
+    }
+
+    console.log( jQuery('#type_ship').length );
+        
+        jQuery(document).on('change', '#type_ship', function(){
+        console.log(jQuery('#type_ship').val());
+            if( jQuery('#type_ship').val()=='shipping address' ){
+                jQuery('#pickup_store_field').hide(1);
+            } else {
+                jQuery('#pickup_store_field').show();
+            }
+        });*/
+
+
+var offdays = [];
+var week_days = unavailable_days = [];
+/**
+ * get selected store at get un available date picker dates
+ */
+jQuery(window).load(function(){
+    if( jQuery('.shipping_method:checked').val()!= "local_pickup:1" && jQuery('.one_method').length == 0 ){
+        jQuery('.shipping_address_block').removeClass('hideThis');
+        jQuery('#pickup_store').val('4751');
+        jQuery("#pickup_date").val('UPS');
+        jQuery('#pickup_time').html('<option value="UPS" selected="selected">UPS</option>');
+        jQuery('.pickup_date_container').hide();
+        jQuery('.pickup_time_container').hide();
+    }
+    if( jQuery('.shipping_method:checked').val()=="local_pickup:1"  || ( jQuery('.shipping_method').length > 0 && jQuery('.shipping_method:checked').length == 0 ) ){
+        pickup_is_checked = true;
+        jQuery('.one_method').hide();
+        if(jQuery('#pickup_store').val() == 4751 ){
+            jQuery('#shipping_type_ups').attr('checked', 'checked');
+        } else {
+            jQuery('#shipping_type_local').attr('checked', 'checked');
+        }
+    }
+});
+
+jQuery(document).on('change', '.shipping_type_method', function () {
+    jQuery('.woocommerce-shipping-fields').prepend('<input type="hidden"  name="type_checked" id="type_checked" value="'+jQuery('.shipping_type_method:checked').val()+'" >');
+    if( jQuery('.shipping_type_method:checked').val() == 'ups'  ){
+        jQuery("#pickup_store option[value='4751']").removeAttr('disabled', 'disabled');
+        jQuery("#pickup_store option[value!='4751']").attr('disabled', 'disabled');
+        jQuery('#pickup_store').val('4751');
+        change_shipping();
+    } else {
+        jQuery('#pickup_store').val('');
+        jQuery("#pickup_store option[value!='4751']").removeAttr('disabled', 'disabled');
+        jQuery("#pickup_store option[value='4751']").attr('disabled', 'disabled');
+        change_shipping();
+    }
+});
+
+jQuery(document).on('change', '#shipping_type_method', function () {
+
+	var shippingmethod = jQuery("#shipping_type_method input[type='radio']:checked").val();
+	//console.log(shippingmethod);
+	if( jQuery(shippingmethod == 'ups'  )){
+        jQuery("#pickup_store option[value='4751']").removeAttr('disabled', 'disabled');
+        jQuery("#pickup_store option[value!='4751']").attr('disabled', 'disabled');
+        jQuery('#pickup_store').val('4751');
+        change_shipping();
+    } else {
+        jQuery('#pickup_store').val('');
+        jQuery("#pickup_store option[value!='4751']").removeAttr('disabled', 'disabled');
+        jQuery("#pickup_store option[value='4751']").attr('disabled', 'disabled');
+	}   
+});
+jQuery(document).on('change', '.woocommerce-billing-fields .address-field input, .woocommerce-billing-fields .address-field input select', function () {
+    if( jQuery('#pickup_store').val() == 4751  ){
+        //console.log(the_ajax_script.stores);
+        //console.log(selected);
+        /*jQuery('#shipping_address_1').val( jQuery('#billing_address_1').val() );
+        jQuery('#shipping_address_2').val( jQuery('#billing_address_2').val() );
+        jQuery('#shipping_city').val( jQuery('#billing_city').val() );
+        jQuery('#shipping_state').val( jQuery('#billing_state').val() );
+        jQuery('#shipping_postcode').val( jQuery('#billing_postcode').val() );*/
+        if( jQuery('.shipping_method:checked').val()== "local_pickup:1"){
+            //console.log( jQuery('.shipping_method:eq(1)') );
+            jQuery('[value="local_pickup:1"]').attr('disabled', 'disabled').removeAttr('checked');
+            jQuery('.shipping_method:eq(1)').attr('checked', 'checked');
+        }
+        hard_update_price();
+    }
+});
+
+jQuery(document).on('change', '#pickup_store', function () {
+
+    change_shipping();
+
+});
+
+jQuery(document).ajaxComplete(function( event, xhr, settings ){
+    //console.log(event);
+    //console.log(jQuery('#pickup_store').val());
+    //console.log(jQuery('#pickup_store').val());
+    //console.log(settings);
+    jQuery('.shipping_method[value="'+jQuery('#type_checked').val()+'"]').attr('checked', 'checked');
+    if( jQuery('.shipping_method:checked').val()=="local_pickup:1"  || ( jQuery('.shipping_method').length > 0 && jQuery('.shipping_method:checked').length == 0 ) ){
+        jQuery('.one_method').hide();
+        if(jQuery('#pickup_store').val() == 4751 ){
+            jQuery('#shipping_type_ups').attr('checked', 'checked');
+			jQuery('#shipping_type_local').attr('disabled', true);
+        } else {
+            jQuery('#shipping_type_local').attr('checked', 'checked');
+        }
+    } else {
+        jQuery('.one_method').show();
+    }
+    if( settings.url.match(/update_order_review/)  && jQuery('#pickup_store').val()!='' && jQuery('#pickup_store').val() != 4751 ){
+        jQuery('#shipping_method').html('<li> Store Pickup<input type="hidden" name="shipping_method[0]" data-index="0" id="shipping_method_0" value="local_pickup:1" class="shipping_method"></li>');
+        /*if( jQuery('#shipping_address_1').val() == jQuery('#billing_address_1').val()  ){
+            jQuery('#shipping_address_1').val( jQuery('#billing_address_1').val() );
+        }
+        if( jQuery('#shipping_address_2').val() == jQuery('#billing_address_2').val()  ){
+            jQuery('#shipping_address_2').val( jQuery('#billing_address_2').val() );
+        }
+        if( jQuery('#shipping_city').val() == jQuery('#billing_city').val()  ){
+            jQuery('#shipping_city').val( jQuery('#billing_city').val() );
+        }
+        if( jQuery('#shipping_state').val() == jQuery('#billing_state').val()  ){
+            jQuery('#shipping_state').val( jQuery('#billing_state').val() );
+        }
+        if( jQuery('#shipping_postcode').val() == jQuery('#billing_postcode').val()  ){
+            jQuery('#shipping_postcode').val( jQuery('#billing_postcode').val() );
+        }*/
+    }
+    if( settings.url.match(/update_order_review/) &&  jQuery('#pickup_store').val() == 4751 ){
+        //console.log( jQuery('#pickup_store').val() );
+
+        if( jQuery('.one_method').length>0 ){
+            jQuery('.one_method').html('Fill correct address.');
+        } else {
+                jQuery('[value="local_pickup:1"]').attr('disabled', 'disabled').removeAttr('checked');
+            
+            if( jQuery('.shipping_method:checked').val()== "local_pickup:1" || jQuery('.shipping_method:checked').length==0 ){
+                //console.log( jQuery('.shipping_method:eq(1)') );
+                jQuery('.shipping_method:eq(1)').attr('checked', 'checked');
+                hard_update_price();
+            }
+            //jQuery('[value="local_pickup"]').attr('disabled', 'disabled').removeAttr('checked');
+            //jQuery('[value="local_pickup"]').attr('disabled', 'disabled').removeAttr('checked').closest('#shipping_method').find('.shipping_method:eq(1)').attr('checked', 'checked');
+
+        }
+    }
+
+});
+
+
+/**
+ * get selected date at get available times
+ */
+jQuery(document).on('change', '#pickup_date', function () {
+    var selected_store = jQuery('#pickup_store').val();
+    var curDate = jQuery(this).datepicker('getDate');
+    var alex_curDateStandart = jQuery.datepicker.formatDate('yy-mm-dd', curDate);
+    var day_name = jQuery.datepicker.formatDate('DD', curDate);
+    jQuery("#pickup_time").val('');
+   // console.log('day_name='+day_name);
+   // console.log('selected_store='+selected_store);
+    if (day_name && selected_store) {
+        jQuery('.pickup_options_errors').html('<img class="loader" src="' + the_ajax_script.ajax_loader + '"/>').show();
+        var data = {
+            action: 'get_store_working_hours_times',
+            selected_store: selected_store,
+            day_name: day_name,
+            date: alex_curDateStandart
+        };
+        jQuery.post(the_ajax_script.ajaxurl, data, function (response) {
+            console.log(response);
+            if(response !== 'error'){
+                jQuery('.pickup_time_container').show();
+                jQuery('.pickup_options_errors').html("").hide();
+                if (response) {
+                    jQuery('#pickup_time').html(response);
+                }
+            } else {
+                jQuery('.pickup_time_container').hide();
+            }
+        });
+    }
+});
+
+jQuery(document).on('click', '#place_order', function (e) {
+    if (pickup_is_checked && (!jQuery("#pickup_store").val() || !jQuery("#pickup_time").val() || !jQuery("#pickup_date").val())) {
+
+        jQuery('.custom_pickup_error').remove();
+        if (!jQuery("#pickup_store").val() && jQuery('.pickup_store_container').is(":visible")) {
+            jQuery('.pickup_store_container').append("<p class='custom_pickup_error' >Please select pickup store</p>")
+        }
+
+        if (!jQuery("#pickup_date").val() && jQuery('.pickup_date_container').is(":visible")) {
+            jQuery('.pickup_date_container').append("<p class='custom_pickup_error' >Please select pickup date</p>")
+
+        }
+
+        if (!jQuery("#pickup_time").val() && jQuery('.pickup_time_container').is(":visible")) {
+            jQuery('.pickup_time_container').append("<p class='custom_pickup_error' >Please select pickup time</p>")
+
+        }
+
+
+        jQuery('html,body').animate({
+            scrollTop: jQuery(".store_pickup_options").offset().top - 120},
+        'slow');
+
+
+        e.preventDefault();
+        return false;
+    } else {
+        return true;
+    }
+});
+function unavailableDates(date) {
+    var day_number = date.getDay();
+    var day = ("0" + (date.getMonth() + 1)).slice(-2) + "/" + ("0" + date.getDate()).slice(-2) + "/" + date.getFullYear();
+    return [((jQuery.inArray(day_number, week_days) == -1) && (jQuery.inArray(day, unavailable_days) == -1) ), ''];
+
+
+}
+console.log(unavailableDates(date));
+
+
+
+
+function hard_update_price(){
+   //console.log('djfgkjfdgj');
+        if ( jQuery( 'form.checkout' ).length === 0 ) {
+                return;
+            }
+
+            args = typeof args !== 'undefined' ? args : {
+                update_shipping_method: true
+            };
+            var country          = jQuery( '#billing_country' ).val(),
+                state            = jQuery( '#billing_state' ).val(),
+                postcode         = jQuery( 'input#billing_postcode' ).val(),
+                city             = jQuery( '#billing_city' ).val(),
+                address          = jQuery( 'input#billing_address_1' ).val(),
+                address_2        = jQuery( 'input#billing_address_2' ).val(),
+                s_country        = country,
+                s_state          = state,
+                s_postcode       = postcode,
+                s_city           = city,
+                s_address        = address,
+                s_address_2      = address_2;
+
+            if ( jQuery( '#ship-to-different-address' ).find( 'input' ).is( ':checked' ) ) {
+                s_country        = jQuery( '#shipping_country' ).val();
+                s_state          = jQuery( '#shipping_state' ).val();
+                s_postcode       = jQuery( 'input#shipping_postcode' ).val();
+                s_city           = jQuery( '#shipping_city' ).val();
+                s_address        = jQuery( 'input#shipping_address_1' ).val();
+                s_address_2      = jQuery( 'input#shipping_address_2' ).val();
+            }
+
+            var data = {
+                security:                   wc_checkout_params.update_order_review_nonce,
+                payment_method:             jQuery('[name="payment_method"]').val(),
+                country:                    country,
+                state:                      state,
+                postcode:                   postcode,
+                city:                       city,
+                address:                    address,
+                address_2:                  address_2,
+                s_country:                  s_country,
+                s_state:                    s_state,
+                s_postcode:                 s_postcode,
+                s_city:                     s_city,
+                s_address:                  s_address,
+                s_address_2:                s_address_2,
+                post_data:                  jQuery( 'form.checkout' ).serialize()
+            };
+            if ( false !== args.update_shipping_method ) {
+                var shipping_methods = {};
+				//console.log(shipping_methods);
+                jQuery( 'select.shipping_method, input[name^="shipping_method"][type="radio"]:checked, input[name^="shipping_method"][type="hidden"]' ).each( function() {
+                    shipping_methods[ jQuery( this ).data( 'index' ) ] = jQuery( this ).val();
+                } );
+
+                data.shipping_method = shipping_methods;
+            }
+
+            jQuery( '.woocommerce-checkout-payment, .woocommerce-checkout-review-order-table' ).block({
+                message: null,
+                overlayCSS: {
+                    background: '#fff',
+                    opacity: 0.6
+                }
+            });
+        jQuery.ajax({
+                type:       'POST',
+                url:        wc_checkout_params.wc_ajax_url.toString().replace( '%%endpoint%%', 'update_order_review' ),
+                data:       data,
+                success:    function( data ) {
+                    // Reload the page if requested
+                    if ( 'true' === data.reload ) {
+                        window.location.reload();
+                        return;
+                    }
+
+                    // Remove any notices added previously
+                    jQuery( '.woocommerce-NoticeGroup-updateOrderReview' ).remove();
+
+                    var termsCheckBoxChecked = jQuery( '#terms' ).prop( 'checked' );
+
+                    // Always update the fragments
+                    if ( data && data.fragments ) {
+                        jQuery.each( data.fragments, function ( key, value ) {
+                            jQuery( key ).replaceWith( value );
+                            jQuery( key ).unblock();
+                        } );
+                    }
+
+                    // Recheck the terms and conditions box, if needed
+                    if ( termsCheckBoxChecked ) {
+                        jQuery( '#terms' ).prop( 'checked', true );
+                    }
+
+                    // Check for error
+                    if ( 'failure' === data.result ) {
+
+                        var $form = jQuery( 'form.checkout' );
+
+                        // Remove notices from all sources
+                        jQuery( '.woocommerce-error, .woocommerce-message' ).remove();
+
+                        // Add new errors returned by this event
+                        if ( data.messages ) {
+                            $form.prepend( '<div class="woocommerce-NoticeGroup-updateOrderReview">' + data.messages + '</div>' );
+                        } else {
+                            $form.prepend( data );
+                        }
+
+                        // Lose focus for all fields
+                        $form.find( '.input-text, select, input:checkbox' ).blur();
+
+                        // Scroll to top
+                        jQuery( 'html, body' ).animate( {
+                            scrollTop: ( $( 'form.checkout' ).offset().top - 100 )
+                        }, 1000 );
+
+                    }
+
+                    // Re-init methods
+                    var $payment_methods = jQuery( '.woocommerce-checkout' ).find( 'input[name="payment_method"]' );
+
+                    // If there is one method, we can hide the radio input
+                    if ( 1 === $payment_methods.length ) {
+                        $payment_methods.eq(0).hide();
+                    }
+
+                    // If there are none selected, select the first.
+                    if ( 0 === $payment_methods.filter( ':checked' ).length ) {
+                        $payment_methods.eq(0).prop( 'checked', true );
+                    }
+
+                    // Trigger click event for selected method
+                    $payment_methods.filter( ':checked' ).eq(0).trigger( 'click' );
+
+                    // Fire updated_checkout e
+                    jQuery( document.body ).trigger( 'updated_checkout' );
+                }
+
+            });
+}

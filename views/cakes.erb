@@ -1,0 +1,40 @@
+</br> </br> </br> 
+<div id="sort">
+  <div > Sort By:
+
+      <!-- Dropdown Trigger -->
+      <a class='dropdown-trigger btn' href='#'id="dropdownThird" data-target='dropdown3'> Choose flavor </a>
+
+      <!-- Dropdown Structure -->
+      <ul id='dropdown3' class='dropdown-content'>
+        <li><a href="#!" id="chocolateButton"> Chocolate </a></li>
+        <li><a href="#!"  id="strawberyButton"> Strawbery </a></li>
+        <li><a href="#!" id="vanillaButton" > Vanilla </a></li>
+
+      </ul>
+  </div>
+</div>
+
+  <div class="container row" id="sortCakes">
+    <% 40.times do %>
+    <% @cakes.each do |cake| %>
+      <div class="col s12 m7 l4" id="<%=cake.type%>">
+   
+        <div class="card">
+          <div class="card-image">
+            <img src='<%= cake.img %>'>
+            <span class="card-title">Card Title</span>
+          </div>
+            <div class="card-action">
+            <a href="#">This is a link</a>
+          </div>
+        </div>
+
+        
+        
+
+      </div>
+              
+    <% end %>
+        <% end %>
+ 

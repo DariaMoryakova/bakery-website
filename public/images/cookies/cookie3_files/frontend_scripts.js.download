@@ -1,0 +1,15 @@
+jQuery.noConflict();
+(function( $ ) {
+
+  $(document).ready(function(){
+
+  	var i = 1;
+  	$(".ctct-form .ctct-form-field-text").each(function(){
+            $(this).addClass('name' + i);
+            i++;
+        });
+
+
+  	}); // document ready
+  
+})(jQuery);

@@ -1,2 +1,1 @@
-# bakery-website
-Bakery Website 
+# bakery-ruby

@@ -1,0 +1,191 @@
+/*
+Theme Name: Flatsome Child Theme
+Theme URI: http://flatsome.uxthemes.com/
+Description: This is a child theme for Flatsome
+Author: UX Themes
+Author URI: http: //www.uxthemes.com/
+Template: flatsome
+Version: 2.5
+*/
+
+/*************** ADD CUSTOM CSS HERE.   ***************/
+
+
+
+@media only screen and (max-width: 48em) {
+/*************** ADD MOBILE ONLY CSS HERE  ***************/
+
+
+}
+
+.woocommerce-info, .page-checkout .woocommerce-info {
+	/*border: 2px solid #1e85be;*/
+	padding: 10px 20px;
+	margin-bottom: 20px;
+}
+
+.pickup_date_container, .pickup_time_container {display: none;}
+
+
+.hideThis {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	opacity: 0;
+}
+
+/*.shop_table .shipping td[data-title="Shipping"]{
+	font-size:0;
+}*/
+
+/*.shop_table .shipping td[data-title="Shipping"]::before{
+	content:'Store Pickup';
+	font-size:14px;
+	line-height:1.125em;
+}*/
+
+ul#shipping_type_method {
+  margin-bottom: 0; }
+
+ul#shipping_type_method li {
+  list-style: none;
+  line-height: 90%;
+  padding: 5px 0; }
+
+ul#shipping_type_method li input,
+ul#shipping_type_method li label {
+  display: inline; }
+
+ul#shipping_type_method li input {
+  margin: 0 5px 0 0; }
+
+ul#shipping_type_method li input, ul#shipping_type_method li label {
+	font-size: 14px;
+}
+
+.shipping_notice {
+	color: red;
+	font-size: 1.3em;
+	line-height: 1.3;
+}
+
+
+/*  22.08.2017 edit  */
+
+.page-template-page-blank-header-php .header-wrapper {
+	position: relative !important;
+	top: auto !important;
+}
+
+.signup-form-wrapper {
+	background-color: #c3b694;
+	padding-top: 30px;
+	padding-bottom: 20px;
+	margin-bottom: 10px;
+}
+.signup-form-wrapper h2{
+	color: #000;
+	text-align: center;
+	font-size: 32px;
+}
+
+.ctct-form {
+	max-width: 1080px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.signup-form-wrapper .ctct-form-field {
+	display: inline-block;
+}
+
+.signup-form-wrapper .ctct-form-field-text {
+	width: 25%;
+	position: relative;
+}
+
+.ctct-form-field-email {
+	width: 50%;
+}
+
+.signup-form-wrapper .ctct-form-field-submit {
+	display: block;
+	text-align: center;
+}
+
+#ctct-submitted {
+	color: #000;
+	border-radius: 7px;
+	background-color: #AEA17E;
+	border:2px solid #000;
+	font-weight: 700;
+	margin-top: 15px;
+}
+
+#ctct-submitted:hover {
+	background-color: #ae8d69;
+}
+
+.ctct-form-field-text.name1:after {
+	position: absolute;
+	content:"First";
+	bottom: -15px;
+	color: #000;
+}
+
+.ctct-form-field-text.name2:after {
+	position: absolute;
+	content:"Last";
+	color: #000;
+	bottom: -15px;
+}
+
+.ctct-form-field-text.name2 label {
+	display: none;
+}
+
+.ctct-form-field label {
+	color: #000;
+	font-size: 20px;
+	margin-bottom: 12px;
+}
+
+.ctct-form-wrapper .ctct-form abbr {
+	display: none;
+}
+
+.ctct-form-field input {
+	font-size: 14px;
+}
+.ctct-form-field input:focus {
+	font-size: 14px;
+}
+
+#masthead .left-links > ul {
+	margin-left: 0;
+}
+
+@media only screen and (max-width: 1024px) {
+	#masthead .left-links > ul {
+		margin-left: -15px;
+	}
+	ul.header-nav li {
+		margin-left: 10px;
+	}
+}
+
+
+@media only screen and (max-width: 767px) {
+/*************** ADD MOBILE ONLY CSS HERE  ***************/
+
+	.signup-form-wrapper .ctct-form-field-text,
+	.ctct-form-field-email {
+		width: 100%;
+	}
+	.ctct-form-field-text.name1:after {
+		bottom: -7px;
+	}
+	.ctct-form-field-text.name2:after {
+		bottom: -7px;
+	}
+}

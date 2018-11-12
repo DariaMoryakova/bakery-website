@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+       <link href="https://fonts.googleapis.com/css?family=David+Libre" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link href="main.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <!-- NAVIGATION BAR: -->
+
+
+
+  <div class="navbar-fixed ">
+    <nav class="navTop">
+    <div class="nav-wrapper">
+      <div class="navFirst ">
+      <!-- <a href="#!" class="brand-logo"> Logo </a> -->
+      </div>
+      <div class="navSecond">
+      <ul class="right hide-on-med-and-down">
+        <li><a class="text" href="index">About</a></li>
+          <!-- Dropdown Trigger -->
+        <li><a class="dropdown-trigger text" href="#!" data-target="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+      <%# <li><a class="dropdown-trigger text" href="#!" data-target="dropdown2"> Events <i class="material-icons right">arrow_drop_down</i></a></li> %>
+
+          <li><a class="text" href="contact">Contact</a></li>
+      </ul>
+      </div>
+    </div>
+  </nav>
+
+</div>
+
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="cookies"> Cookies </a></li>
+  <li><a href="cakes"> Cakes </a></li>
+
+  <li><a href="cupcakes"> Cupcakes </a></li>
+</ul>
+
+<ul id="dropdown2" class="dropdown-content">
+  <li><a href="#!"> Wedding </a></li>
+  <li><a href="#!"> Birthday </a></li>
+  <li><a href="#!"> Party </a></li>
+</ul>
+
+
+
+<%# <div class="sampleDiv1"> </div> %>
+</br> </br> </br>
+<%= yield %>
+
+  <body>
+
+<!-- FOOTER: -->
+<footer class="page-footer">
+         <div class="container">
+           <div class="row">
+             <div class="col l6 s12">
+               <h5 class="white-text"> Magnolia Bakery </h5>
+               <p class="grey-text text-lighten-4"> 919.821.4223  </p>
+               <p> Our Address <br>
+                 104 Glenwood Avenue
+                 Raleigh,North Carolina 27603 </p>
+             </div>
+             <div class="col l4 offset-l2 s12">
+      
+             </div>
+           </div>
+         </div>
+         <div class="footer-copyright">
+           <div class="container">
+           © 2014 Copyright Text
+           <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+           </div>
+         </div>
+       </footer>
+
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+
+  </html>

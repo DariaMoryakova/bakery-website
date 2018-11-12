@@ -1,0 +1,164 @@
+body {
+  margin: 0px;
+  background: rgb(209, 171, 177);
+}
+.sampleDiv1 {
+  height: 800px;
+  width:500px;
+}
+.firstDiv {
+  height:400px;
+  margin-bottom: 0px;
+  line-height: 0px;
+  margin-bottom: 0px!important;
+}
+.main-image{
+  background-image: url("images/bakery2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 400px;
+  margin-top: 0px!important;
+}
+.secondDiv {
+  height: 600px;
+  background-color: #eddcdf;
+  padding: 0px;
+  margin: 0px;
+}
+/* NAVIGATION BAR: */
+.navTop {
+  height:130px!important;
+  background-color: #f4ffea!important;
+  display:inline-block;
+  position: relative;
+}
+.navFirst {
+  width:350px!important;
+  height: 130px;
+  background-color: #f4ffea!important;
+  position: relative!important;
+  display: inline-block!important;
+  background-repeat: no-repeat;
+  background-image: url("bakery.logo.png");
+  background-size:65%;
+  background-position: right;
+}
+.navSecond {
+  height: 130px;
+  width:700px;
+  background-color: #f4ffea;
+  position: relative;
+  display: inline-block;
+  margin-right: 0px;
+  padding-top:30px;
+  font-size: 100px!important;
+  font-family: 'Raleway', sans-serif;
+}
+.text {
+    font-family: 'Great Vibes', cursive!important;
+    font-size: 40px;
+    color:purple;
+}
+/* ABOUT: */
+.aboutBakeryTitile {
+  font-family: 'Great Vibes', cursive!important;
+  font-size: 55px;
+  color:#7f567e;
+  text-align: center;
+  padding-top:20px;
+  margin-top: 0px;
+}
+.aboutBakery {
+    font-family: 'Raleway', sans-serif;
+    font-size:20px;
+    text-align: justify;
+    color:#7f567e;
+    margin-left: 60px;
+    margin-right: 80px;
+}
+
+/* INSTAGRAM LINK: */
+.instagram {
+  height: 320px;
+
+}
+.instagramDiv {
+  height:200px;
+  width:200px;
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+.insta1 {
+  margin-left: 120px;
+  background-image: url("images/cake1.jpg");
+  border: 10px solid #9b6196;
+}
+.insta2 {
+  background-image: url("images/cake2.jpg");
+  border: 10px solid #9b6196;
+}
+.insta3 {
+  background-image: url("images/cake3.jpg");
+   border: 10px solid #9b6196;
+}
+.insta4 {
+  background-image: url("images/cake4.jpg");
+  border: 10px solid #9b6196;
+}
+.insta5 {
+  background-image: url("images/cake5.jpg");
+  border: 10px solid #9b6196;
+}
+.instagramTitle {
+  font-family: 'Great Vibes', cursive!important;
+  font-size: 50px;
+  color:purple;
+  text-align: center;
+}
+.page-footer {
+  background-color: #7f567e;
+}
+/* CONTACT PAGE: */
+.contactDiv {
+  margin-top: 120px;
+}
+.contactImage {
+  position: relative!important;
+  display: inline-block!important;
+  background-image: url("images/contact.jpg");
+  background-repeat: no-repeat;
+  height:600px;
+}
+
+.contactInfo {
+  position: relative!important;
+  display:inline-block!important;
+  background-color: lightyellow;
+  height:375px;
+  padding: 40px!important;
+  font-family: 'Raleway', sans-serif;
+}
+.contactTitle{
+  font-family: 'Raleway', sans-serif;
+  font-size: 24px;
+  color:purple;
+  text-align: center;
+}
+.contactText {
+    font-family: 'Raleway', sans-serif;
+    font-size: 22px;
+    color:black;
+    text-align: center;
+}
+/* CAKES PAGE: */
+#sort {
+  text-align: center;
+}
+.card-content {
+  color:red;
+}
+#dropdownThird {
+  background-color: lightpink!important;
+  color:black;
+}
